@@ -20,12 +20,16 @@ class FollowingListAPI {
             
             var followingListRef = Database.database().reference().child("userList").child(currentUser.uid).child("followingList")
             
-            func observeFollowingList(completion: @escaping (String) -> Void){
+            func observeFollowingList(completion: @escaping (User) -> Void){
                 
                 followingListRef.observe(.childAdded, with: {(Snapshot) in
                     
                     let followingUid = Snapshot.key
-                    completion(followingUid)
+                    // 拿followingUid去找出用戶顯示名稱，存到變數後再將變數存到displayname
+                   let followingUserName = Database.database().reference().child("userList").child(followingUid).value(forKey: "name")
+                    
+                    let followingUser = User.followingList(uid: followingUid, displayName: followingUserName as! String)
+                    completion(followingUser)
                         
                                         
                     
