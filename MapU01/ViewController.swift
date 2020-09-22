@@ -85,11 +85,30 @@ class ViewController: UIViewController {
 //        self.randomTag.text = randomTag.tagContent
         
     
+    func test() {
+//        let followingUserName = Database.database().reference().child("userList").child("7IZJSHPIAxUb2B4T6z6e1QyB9tl1").child("name").value(forKey: "name")
+//
 
+    userRefSetup().child("userList").child("Me2Qvwq0kzdFqyJk7KS4VdHzK7S2").observe(.value) {
+        displayName in
+        
+        if let followingUserName = displayName.value {
+   
+            self.randomTag.text = followingUserName as? String
+            print(followingUserName)
+
+        }else{print("failed!!!")
+            
+            
+        }
+        
+        }
+        
+    }
     
     
     @IBAction func test(_ sender: Any) {
-
+       test()
     }
     
     
