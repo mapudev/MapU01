@@ -24,8 +24,7 @@ class ViewController: UIViewController {
     var tagPool: Tag?
     var shuffledTagArr = [Tag]()
     var followingList = [User]()
-    
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -37,11 +36,11 @@ class ViewController: UIViewController {
            print(error!.localizedDescription)
         }}
         
+        
         fetchTagPool() {tags in
             let shuffledtags = tags.shuffled()
             self.randomTag.text = shuffledtags[0].tagContent
         }
-        
         
         }
          
@@ -49,26 +48,33 @@ class ViewController: UIViewController {
     
 
     //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
-    //要怎麼將 Tag 實例ID與tagContent對比出來
     func fetchTagPool(callback: @escaping ([Tag]) -> Void) {
         DispatchQueue.main.async {
             API.Tag.observeTagPool { tag in
                        self.tagArr.append(tag)
                 callback(self.tagArr)
                    }
-        }
-       
+        }}
+   
+           
+//    func printIfNeeded() {
+//        guard followingList.count > 1 else { return }
+//        // Check the condition you need.
+//
+//        print(self.followingList[0].displayName)
+//        print(self.followingList[1].displayName)
+//    }
+//
+     
+    func fetchfollowingList(callback: @escaping ([User]) -> Void) {
 
-    }
-        
-        
-        
-    func fetchfollowingList(callback: ([User]) -> Void) {
-        
-        API.User.fetchFollowingList()
-        
-        
-    }
+        API.User.fetchFollowingList { followingUser in
+            DispatchQueue.main.async {
+            self.followingList.append(followingUser)
+            callback(self.followingList)
+//            self.printIfNeeded()
+            }
+        }}
         
     // 將標籤實例隨機排序取出兩個實例
     func outputRandomTagInstance(callback: (Tag) -> Void) {
@@ -84,32 +90,30 @@ class ViewController: UIViewController {
         //        let randomTag = shuffledTag[0]
 //        self.randomTag.text = randomTag.tagContent
         
+
+    
     
     func test() {
-//        let followingUserName = Database.database().reference().child("userList").child("7IZJSHPIAxUb2B4T6z6e1QyB9tl1").child("name").value(forKey: "name")
-//
+        fetchfollowingList() { followingUser in
+            print(self.followingList)
 
-    userRefSetup().child("userList").child("Me2Qvwq0kzdFqyJk7KS4VdHzK7S2").observe(.value) {
-        displayName in
-        
-        if let followingUserName = displayName.value {
+
+        }
+            
+        }
+//          self.friendB.setTitle(followingUser[0].displayName, for: .normal)
+//         self.friendA.setTitle(followingUser[1].displayName, for: .normal)
    
-            self.randomTag.text = followingUserName as? String
-            print(followingUserName)
-
-        }else{print("failed!!!")
-            
-            
-        }
         
-        }
         
-    }
+    
     
     
     @IBAction func test(_ sender: Any) {
-       test()
-    }
+        giveFriendTag(tag: self.tagArr[0].tagID ?? "noooooo")
+            
+        }
+    
     
     
     
@@ -125,14 +129,11 @@ class ViewController: UIViewController {
 //        }
     
     //建立根路徑
-    func userRefSetup() -> DatabaseReference {
-        let userRef = Database.database().reference()
-        return userRef
-    }
+    
     
 //撈出全部標籤＞確認每次撈取都是最新狀態的標籤池>吐出隨機標籤給前端
     func outputRandomTag() -> [String]{
-        let _ = userRefSetup().child("tagPool").observe(.childAdded) {
+        API.UserRef.userRefRoot.child("tagPool").observe(.childAdded) {
             (Snapshot) in
             for child in Snapshot.children {
                 let tagKeyList = child as! DataSnapshot
@@ -144,6 +145,8 @@ class ViewController: UIViewController {
             }
         let shuffledTag = self.tagsForVote.shuffled()
         return shuffledTag
+        
+        
         }
         
  
@@ -189,11 +192,10 @@ class ViewController: UIViewController {
         
       
         if let currentUser = Auth.auth().currentUser {
-            userRefSetup().child("userList").child(currentUser.uid).child("voteTag").child((tagPool?.tagID)!)
+            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child((tagPool?.tagID)!).setValue(true)
             
         }else{
-            return
-        }
+print("faileddddd")        }
         }
     
       
@@ -202,7 +204,7 @@ class ViewController: UIViewController {
 // 提交tag
     func submitTags(newTag: String) {
         
-        userRefSetup().child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
+        API.UserRef.userRef.child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
                
      }
     
