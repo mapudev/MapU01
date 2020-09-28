@@ -42,9 +42,10 @@ class ViewController: UIViewController {
             self.randomTag.text = shuffledtags[0].tagContent
         }
         
+        fetchFriendName()
+        
         }
          
-        //        fetchFriendName()
     
 
     //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
@@ -94,13 +95,11 @@ class ViewController: UIViewController {
     
     
     func test() {
-        fetchfollowingList() { followingUser in
-            print(self.followingList)
 
 
         }
             
-        }
+        
 //          self.friendB.setTitle(followingUser[0].displayName, for: .normal)
 //         self.friendA.setTitle(followingUser[1].displayName, for: .normal)
    
@@ -110,23 +109,24 @@ class ViewController: UIViewController {
     
     
     @IBAction func test(_ sender: Any) {
-        giveFriendTag(tag: self.tagArr[0].tagID ?? "noooooo")
-            
+        fetchFriendName()
+
         }
     
     
     
     
 //    //撈出朋友名單陣列
-//    func fetchFriendName() ->[String] {
-//
-//      userRefSetup().child("userList").observe(.childAdded, with: { (snapshot) in
-//                if let userName = snapshot.childSnapshot(forPath: "name").value {
-//                    self.userNameArr.append(userName as! String)
-//                    }
-//        })
-//        return self.userNameArr
-//        }
+    func fetchFriendName() ->[String] {
+
+        API.UserRef.userRef.observe(.childAdded, with: { (snapshot) in
+                if let userName = snapshot.childSnapshot(forPath: "name").value {
+                    self.userNameArr.append(userName as? String ?? "noo")
+                    }
+        })
+        print(self.userNameArr)
+        return self.userNameArr
+        }
     
     //建立根路徑
     
@@ -188,15 +188,15 @@ class ViewController: UIViewController {
     
 //  下一步：將投票對象與標籤做關聯in firebase
 //         要怎麼將對應的tagID寫到userID底下？
-    func giveFriendTag(tag: String) {
-        
-      
-        if let currentUser = Auth.auth().currentUser {
-            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child((tagPool?.tagID)!).setValue(true)
-            
-        }else{
-print("faileddddd")        }
-        }
+//    func giveFriendTag(tag: String) {
+//
+//
+//        if let currentUser = Auth.auth().currentUser {
+//            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child((tagPool?.tagID)!).setValue(true)
+//
+//        }else{
+//print("faileddddd")        }
+//        }
     
       
     
