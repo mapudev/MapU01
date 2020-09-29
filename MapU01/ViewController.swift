@@ -43,19 +43,24 @@ class ViewController: UIViewController {
         }
         
         fetchFriendName()
-        
         }
          
+
     
 
     //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
     func fetchTagPool(callback: @escaping ([Tag]) -> Void) {
-        DispatchQueue.main.async {
+//        DispatchQueue.global(qos: .utility).async {
             API.Tag.observeTagPool { tag in
                        self.tagArr.append(tag)
                 callback(self.tagArr)
                    }
-        }}
+            
+//            DispatchQueue.main.async {
+                print(self.tagArr)
+//            }}
+    
+}
    
            
 //    func printIfNeeded() {
@@ -96,7 +101,6 @@ class ViewController: UIViewController {
     
     func test() {
 
-
         }
             
         
@@ -109,9 +113,13 @@ class ViewController: UIViewController {
     
     
     @IBAction func test(_ sender: Any) {
-        fetchFriendName()
-
+        let tagID = self.tagArr[0].tagID ?? ""
+        
+        giveFriendTag(tagID: tagID)
         }
+            
+        
+        
     
     
     
@@ -124,7 +132,6 @@ class ViewController: UIViewController {
                     self.userNameArr.append(userName as? String ?? "noo")
                     }
         })
-        print(self.userNameArr)
         return self.userNameArr
         }
     
@@ -188,23 +195,23 @@ class ViewController: UIViewController {
     
 //  下一步：將投票對象與標籤做關聯in firebase
 //         要怎麼將對應的tagID寫到userID底下？
-//    func giveFriendTag(tag: String) {
-//
-//
-//        if let currentUser = Auth.auth().currentUser {
-//            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child((tagPool?.tagID)!).setValue(true)
-//
-//        }else{
-//print("faileddddd")        }
-//        }
+    func giveFriendTag(tagID: String) {
+
+
+        if let currentUser = Auth.auth().currentUser {
+            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(tagID).setValue(true)
+
+        }else{
+print("faileddddd")        }
+        }
     
       
-    
+
 
 // 提交tag
     func submitTags(newTag: String) {
         
-        API.UserRef.userRef.child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
+        API.UserRef.userRefRoot.child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
                
      }
     
