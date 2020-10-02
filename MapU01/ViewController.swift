@@ -37,10 +37,9 @@ class ViewController: UIViewController {
         }}
         
         
-        fetchTagPool() {tags in
-            let shuffledtags = tags.shuffled()
-            self.randomTag.text = shuffledtags[0].tagContent
-        }
+        self.tagArr = fetchTagPool()
+        
+        
         
         fetchFriendName()
         }
@@ -49,17 +48,14 @@ class ViewController: UIViewController {
     
 
     //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
-    func fetchTagPool(callback: @escaping ([Tag]) -> Void) {
-//        DispatchQueue.global(qos: .utility).async {
+    func fetchTagPool() -> [Tag] {
+        var result = [Tag]()
+        
             API.Tag.observeTagPool { tag in
-                       self.tagArr.append(tag)
-                callback(self.tagArr)
+                result.append(tag)
                    }
-            
-//            DispatchQueue.main.async {
-                print(self.tagArr)
-//            }}
-    
+        return result
+
 }
    
            
@@ -72,15 +68,15 @@ class ViewController: UIViewController {
 //    }
 //
      
-    func fetchfollowingList(callback: @escaping ([User]) -> Void) {
+//    func fetchfollowingList(callback: @escaping ([User]) -> Void) {
+//
+//        API.User.fetchFollowingList { followingUser in
+//            self.followingList.append(followingUser)
+//            callback(self.followingList)
+//
+//        }}
+    
 
-        API.User.fetchFollowingList { followingUser in
-            DispatchQueue.main.async {
-            self.followingList.append(followingUser)
-            callback(self.followingList)
-//            self.printIfNeeded()
-            }
-        }}
         
     // 將標籤實例隨機排序取出兩個實例
     func outputRandomTagInstance(callback: (Tag) -> Void) {
@@ -124,7 +120,7 @@ class ViewController: UIViewController {
     
     
     
-//    //撈出朋友名單陣列
+//    //撈出用戶名單陣列
     func fetchFriendName() ->[String] {
 
         API.UserRef.userRef.observe(.childAdded, with: { (snapshot) in
@@ -135,7 +131,7 @@ class ViewController: UIViewController {
         return self.userNameArr
         }
     
-    //建立根路徑
+ 
     
     
 //撈出全部標籤＞確認每次撈取都是最新狀態的標籤池>吐出隨機標籤給前端

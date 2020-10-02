@@ -8,9 +8,13 @@
 
 import Foundation
 import FirebaseDatabase
+import FirebaseAuth
+
 
 class UserAPI {
 
+//    let currentUser = Auth.auth().currentUser
+    
     var userRefRoot = Database.database().reference()
 
     var userRef = Database.database().reference().child("userList")
