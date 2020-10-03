@@ -36,27 +36,42 @@ class ViewController: UIViewController {
            print(error!.localizedDescription)
         }}
         
+        fetchTagPool(completionHandler: { tagArr in
+            self.shuffledTagArr = tagArr!.shuffled()
+            self.randomTag.text = self.shuffledTagArr[3].tagContent
+          
+//            print(self.shuffledTagArr)
+            
+        })
+         
+
+                    
+//        let viewDidLoadRandomTag = self.tagArr.shuffled()
+//            viewDidLoadRandomTag[0].tagContent = self.randomTag.text
         
-        self.tagArr = fetchTagPool()
-        
-        
-        
-        fetchFriendName()
         }
          
 
-    
+    typealias TagArrayClosure = ([Tag]?) -> Void
 
     //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
-    func fetchTagPool() -> [Tag] {
+    func fetchTagPool(completionHandler: @escaping TagArrayClosure) {
         var result = [Tag]()
         
             API.Tag.observeTagPool { tag in
                 result.append(tag)
-                   }
-        return result
-
-}
+               
+                DispatchQueue.main.async() {
+                    if result.isEmpty {
+                        completionHandler(nil)
+                    }else {
+                        completionHandler(result)
+                      }
+        }
+    }
+    }
+    
+           
    
            
 //    func printIfNeeded() {
@@ -83,9 +98,9 @@ class ViewController: UIViewController {
 
         let shuffledArr = self.tagArr.shuffled()
         
-//        print(shuffledArr)
         callback(shuffledArr[0])
-        
+        //        print(shuffledArr)
+
         
         
         }
@@ -109,9 +124,12 @@ class ViewController: UIViewController {
     
     
     @IBAction func test(_ sender: Any) {
-        let tagID = self.tagArr[0].tagID ?? ""
-        
-        giveFriendTag(tagID: tagID)
+        fetchFollowingUser { followingUser in
+            
+                       print(followingUser)
+            
+            
+        }
         }
             
         
@@ -119,16 +137,24 @@ class ViewController: UIViewController {
     
     
     
-    
+    typealias FollowingArrayClosure = ([User]?) -> Void
 //    //撈出用戶名單陣列
-    func fetchFriendName() ->[String] {
-
-        API.UserRef.userRef.observe(.childAdded, with: { (snapshot) in
-                if let userName = snapshot.childSnapshot(forPath: "name").value {
-                    self.userNameArr.append(userName as? String ?? "noo")
-                    }
-        })
-        return self.userNameArr
+    func fetchFollowingUser(completionHandler: @escaping FollowingArrayClosure) {
+        
+        var result = [User]()
+        
+        API.User.fetchFollowingList { followingUser in
+            
+            result.append(followingUser)
+            
+            DispatchQueue.main.async() {
+                if result.isEmpty {
+                    completionHandler(nil)
+                }else {
+                    completionHandler(result)
+                  }
+            
+            }}
         }
     
  
@@ -162,22 +188,26 @@ class ViewController: UIViewController {
 
 ////  吐出隨機朋友名字
 ////  待補：不能跟上一個 name 一樣
-//    func outputRandomFriend() ->(String, String) {
-//       let FriShuffled = self.userNameArr.shuffled()
-//        let FriA = FriShuffled[0]
-//        let FriB = FriShuffled[1]
-//
-//        return (FriA, FriB)
+    func outputRandomFriend() ->(String, String) {
+       let FriShuffled = self.userNameArr.shuffled()
+        let FriA = FriShuffled[0]
+        let FriB = FriShuffled[1]
+
+        return (FriA, FriB)
    
-//    }
+    }
 
 //兩顆朋友名字投票按鈕，要連結同一支程式，考慮用tag來控制
     @IBAction func friendA(_ sender: UIButton) {
-//    let randon2Fri = outputRandomFriend()
-//    sender.setTitle(randon2Fri.0, for: .normal)
-//    self.friendB.setTitle(randon2Fri.1, for: .normal)
-//
-//        outputRandomTagInstance()
+    let randon2Fri = outputRandomFriend()
+    sender.setTitle(randon2Fri.0, for: .normal)
+    self.friendB.setTitle(randon2Fri.1, for: .normal)
+
+        outputRandomTagInstance { tagInstance in
+            
+            randomTag.text = tagInstance.tagContent
+            
+        }
     }
     
     @IBAction func friendB(_ sender: UIButton) {
@@ -204,7 +234,7 @@ print("faileddddd")        }
       
 
 
-// 提交tag
+// 提交tag函式
     func submitTags(newTag: String) {
         
         API.UserRef.userRefRoot.child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
