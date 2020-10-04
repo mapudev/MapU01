@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     var tagsForVote: [String] = []
     var userNameArr: [String] = []
     var tagArr = [Tag]()
-    var tagPool: Tag?
+    var votedTag: Tag?
     var shuffledTagArr = [Tag]()
     var followingList = [User]()
 
@@ -71,7 +71,6 @@ class ViewController: UIViewController {
     }
     }
     
-           test
    
            
 //    func printIfNeeded() {
@@ -93,7 +92,7 @@ class ViewController: UIViewController {
     
 
         
-    // 將標籤實例隨機排序取出兩個實例
+    //吐出隨機標籤給前端
     func outputRandomTagInstance(callback: (Tag) -> Void) {
 
         let shuffledArr = self.tagArr.shuffled()
@@ -115,13 +114,7 @@ class ViewController: UIViewController {
         }
             
         
-//          self.friendB.setTitle(followingUser[0].displayName, for: .normal)
-//         self.friendA.setTitle(followingUser[1].displayName, for: .normal)
-   
-        
-        
-    
-    
+      
     
     @IBAction func test(_ sender: Any) {
         fetchFollowingUser { followingUser in
@@ -160,36 +153,11 @@ class ViewController: UIViewController {
  
     
     
-//撈出全部標籤＞確認每次撈取都是最新狀態的標籤池>吐出隨機標籤給前端
-    func outputRandomTag() -> [String]{
-        API.UserRef.userRefRoot.child("tagPool").observe(.childAdded) {
-            (Snapshot) in
-            for child in Snapshot.children {
-                let tagKeyList = child as! DataSnapshot
-                let tagValueList = tagKeyList.value as! String
-                self.tagsForVote.append(tagValueList)
-
-                }
-                    
-            }
-        let shuffledTag = self.tagsForVote.shuffled()
-        return shuffledTag
-        
-        
-        }
-        
- 
-    
-     
-    
-    
-    
-    
 
 ////  吐出隨機朋友名字
 ////  待補：不能跟上一個 name 一樣
-    func outputRandomFriend() ->(String, String) {
-       let FriShuffled = self.userNameArr.shuffled()
+    func outputRandomFriend(followingUsers: [User]) ->(User, User) {
+       let FriShuffled = followingUsers.shuffled()
         let FriA = FriShuffled[0]
         let FriB = FriShuffled[1]
 
@@ -199,15 +167,15 @@ class ViewController: UIViewController {
 
 //兩顆朋友名字投票按鈕，要連結同一支程式，考慮用tag來控制
     @IBAction func friendA(_ sender: UIButton) {
-    let randon2Fri = outputRandomFriend()
-    sender.setTitle(randon2Fri.0, for: .normal)
-    self.friendB.setTitle(randon2Fri.1, for: .normal)
-
-        outputRandomTagInstance { tagInstance in
-            
-            randomTag.text = tagInstance.tagContent
-            
-        }
+//    let randon2Fri = outputRandomFriend()
+//    sender.setTitle(randon2Fri.0, for: .normal)
+//    self.friendB.setTitle(randon2Fri.1, for: .normal)
+//
+//        outputRandomTagInstance { tagInstance in
+//
+//            randomTag.text = tagInstance.tagContent
+//
+//        }
     }
     
     @IBAction func friendB(_ sender: UIButton) {
@@ -225,7 +193,7 @@ class ViewController: UIViewController {
 
 
         if let currentUser = Auth.auth().currentUser {
-            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(tagID).setValue(true)
+            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(votedTag!.tagID!).setValue(true)
 
         }else{
 print("faileddddd")        }
