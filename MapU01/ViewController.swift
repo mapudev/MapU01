@@ -71,34 +71,26 @@ class ViewController: UIViewController {
     }
     }
     
-   
-           
-//    func printIfNeeded() {
-//        guard followingList.count > 1 else { return }
-//        // Check the condition you need.
-//
-//        print(self.followingList[0].displayName)
-//        print(self.followingList[1].displayName)
-//    }
-//
-     
-//    func fetchfollowingList(callback: @escaping ([User]) -> Void) {
-//
-//        API.User.fetchFollowingList { followingUser in
-//            self.followingList.append(followingUser)
-//            callback(self.followingList)
-//
-//        }}
+        
+
     
 
         
     //吐出隨機標籤給前端
     func outputRandomTagInstance(callback: (Tag) -> Void) {
-
-        let shuffledArr = self.tagArr.shuffled()
+       var shuffledArr = [Tag]()
         
+        if self.tagArr.isEmpty { print("failed!!!")
+                 
+            
+        }else{
+            
+            shuffledArr = self.tagArr.shuffled()
+
+        }
+        print(shuffledArr[0].tagContent)
+
         callback(shuffledArr[0])
-        //        print(shuffledArr)
 
         
         
@@ -157,25 +149,34 @@ class ViewController: UIViewController {
 ////  吐出隨機朋友名字
 ////  待補：不能跟上一個 name 一樣
     func outputRandomFriend(followingUsers: [User]) ->(User, User) {
-       let FriShuffled = followingUsers.shuffled()
-        let FriA = FriShuffled[0]
-        let FriB = FriShuffled[1]
+      
+        var FriA = User()
+        var FriB = User()
 
+        if self.followingList.isEmpty { print("failed!!")
+            
+        }else{
+            
+            let FriShuffled = followingUsers.shuffled()
+            FriA = FriShuffled[0]
+            FriB = FriShuffled[1]
+         
+        }
         return (FriA, FriB)
    
     }
 
 //兩顆朋友名字投票按鈕，要連結同一支程式，考慮用tag來控制
     @IBAction func friendA(_ sender: UIButton) {
-//    let randon2Fri = outputRandomFriend()
-//    sender.setTitle(randon2Fri.0, for: .normal)
-//    self.friendB.setTitle(randon2Fri.1, for: .normal)
-//
-//        outputRandomTagInstance { tagInstance in
-//
-//            randomTag.text = tagInstance.tagContent
-//
-//        }
+        let randon2Fri = outputRandomFriend(followingUsers: self.followingList)
+        sender.setTitle(randon2Fri.0.displayName, for: .normal)
+        self.friendB.setTitle(randon2Fri.1.displayName, for: .normal)
+
+        outputRandomTagInstance { tagInstance in
+
+            randomTag.text = tagInstance.tagContent
+
+        }
     }
     
     @IBAction func friendB(_ sender: UIButton) {
