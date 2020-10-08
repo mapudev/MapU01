@@ -11,6 +11,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseStorage
+import GameKit
 
 class ViewController: UIViewController {
 
@@ -40,7 +41,7 @@ class ViewController: UIViewController {
             self.shuffledTagArr = tagArr!.shuffled()
             self.randomTag.text = self.shuffledTagArr[3].tagContent
           
-//            print(self.shuffledTagArr)
+//            print(self.shuffledTagArr.count)
             
         })
          
@@ -78,28 +79,22 @@ class ViewController: UIViewController {
         
     //吐出隨機標籤給前端
     func outputRandomTagInstance(callback: (Tag) -> Void) {
-       var shuffledArr = [Tag]()
         
-        if self.tagArr.isEmpty { print("failed!!!")
+        if self.shuffledTagArr.isEmpty { return
                  
             
         }else{
-            
-            shuffledArr = self.tagArr.shuffled()
+            print(self.shuffledTagArr[2].tagContent!)
+
+//            shuffledArr = self.tagArr.shuffled()
 
         }
-        print(shuffledArr[0].tagContent)
 
-        callback(shuffledArr[0])
+//        callback(shuffledArr[0])
 
-        
         
         }
-        //        let randomTag = shuffledTag[0]
-//        self.randomTag.text = randomTag.tagContent
-        
-
-    
+           
     
     func test() {
 
@@ -109,12 +104,17 @@ class ViewController: UIViewController {
       
     
     @IBAction func test(_ sender: Any) {
-        fetchFollowingUser { followingUser in
+
+        if self.shuffledTagArr.isEmpty { return
+                 
             
-                       print(followingUser)
+        }else{
+          let number = GKRandomSource.sharedRandom().nextInt(upperBound: self.shuffledTagArr.count)
             
+            print(self.shuffledTagArr[number].tagContent)
             
         }
+        
         }
             
         

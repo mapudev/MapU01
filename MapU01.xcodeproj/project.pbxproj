@@ -15,6 +15,7 @@
 		964C09A025125F68002FF83D /* followingListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C099F25125F68002FF83D /* followingListAPI.swift */; };
 		964C57972509B81900051A98 /* tagPoolAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C57962509B81900051A98 /* tagPoolAPI.swift */; };
 		9650688F250E51DD001A8193 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9650688E250E51DD001A8193 /* API.swift */; };
+		96A606B2252E0A4100E94432 /* TableViewTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96A606B1252E0A4100E94432 /* TableViewTestViewController.swift */; };
 		96AF98DC2520C2C900D4D7A3 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96AF98DB2520C2C900D4D7A3 /* UserAPI.swift */; };
 		96FDEE6F24D708C80060DFC2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDEE6E24D708C80060DFC2 /* AppDelegate.swift */; };
 		96FDEE7124D708C80060DFC2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96FDEE7024D708C80060DFC2 /* SceneDelegate.swift */; };
@@ -38,6 +39,7 @@
 		964C099F25125F68002FF83D /* followingListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = followingListAPI.swift; sourceTree = "<group>"; };
 		964C57962509B81900051A98 /* tagPoolAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tagPoolAPI.swift; sourceTree = "<group>"; };
 		9650688E250E51DD001A8193 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		96A606B1252E0A4100E94432 /* TableViewTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewTestViewController.swift; sourceTree = "<group>"; };
 		96AF98DB2520C2C900D4D7A3 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		96FDEE6B24D708C80060DFC2 /* MapU01.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapU01.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FDEE6E24D708C80060DFC2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				964C09A125125F76002FF83D /* API */,
 				962E10E724E046A200F0262F /* SignUpInViewController.swift */,
 				96FDEE7224D708C80060DFC2 /* ViewController.swift */,
+				96A606B1252E0A4100E94432 /* TableViewTestViewController.swift */,
 				962470FD25092A9400E74B47 /* Model */,
 				96FDEE7424D708C80060DFC2 /* Main.storyboard */,
 				96FDEE7A24D708C80060DFC2 /* Assets.xcassets */,
@@ -262,6 +265,7 @@
 				96AF98DC2520C2C900D4D7A3 /* UserAPI.swift in Sources */,
 				963DD01F2503C4D80078EA10 /* APIViewController.swift in Sources */,
 				9650688F250E51DD001A8193 /* API.swift in Sources */,
+				96A606B2252E0A4100E94432 /* TableViewTestViewController.swift in Sources */,
 				964C57972509B81900051A98 /* tagPoolAPI.swift in Sources */,
 				96FDEE7124D708C80060DFC2 /* SceneDelegate.swift in Sources */,
 				962E10E824E046A200F0262F /* SignUpInViewController.swift in Sources */,
