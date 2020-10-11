@@ -8,7 +8,24 @@
 
 import UIKit
 
-class TableViewTestViewController: UIViewController {
+class TableViewTestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+     
+    let testArray = ["AAA", "BBB", "CCC", "DDD"]
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+         return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return testArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellTest = UITableViewCell()
+        cellTest.textLabel?.text = testArray[indexPath.row ]
+        
+        return cellTest
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
