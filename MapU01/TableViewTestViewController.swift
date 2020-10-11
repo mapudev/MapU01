@@ -21,10 +21,12 @@ class TableViewTestViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellTest = UITableViewCell()
-        cellTest.textLabel?.text = testArray[indexPath.row ]
+//        let cellTest = UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        return cellTest
+        cell.textLabel?.text = testArray[indexPath.row ]
+        
+        return cell
     }
 
     override func viewDidLoad() {
