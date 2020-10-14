@@ -11,24 +11,49 @@ import UIKit
 class TableViewTestViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
      
     let testArray = ["AAA", "BBB", "CCC", "DDD"]
+    let testArray2 = ["111", "222", "333",]
+
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
-         return 1
+         return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArray.count
+        
+        if section == 0 {
+            return testArray.count
+        }else{
+            return testArray2.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cellTest = UITableViewCell()
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        cell.textLabel?.text = testArray[indexPath.row ]
+        if indexPath.section == 0 {
+            cell.textLabel?.text = testArray[indexPath.row ]
+        }else {
+            cell.textLabel?.text = testArray2[indexPath.row ]
+            
+        }
         
+     
         return cell
     }
 
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        
+        if section == 0 {
+            return "TEST A"
+        }else{
+            return "test B"
+
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 

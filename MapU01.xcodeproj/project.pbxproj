@@ -10,6 +10,7 @@
 		962470FF25092AD000E74B47 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962470FE25092AD000E74B47 /* Tag.swift */; };
 		962E10E824E046A200F0262F /* SignUpInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 962E10E724E046A200F0262F /* SignUpInViewController.swift */; };
 		963DD01F2503C4D80078EA10 /* APIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 963DD01E2503C4D80078EA10 /* APIViewController.swift */; };
+		964177A325374CBA001C55AA /* NotificationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964177A225374CBA001C55AA /* NotificationTableViewController.swift */; };
 		964325C524F6AF16005F8430 /* TestArchiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964325C424F6AF16005F8430 /* TestArchiveViewController.swift */; };
 		964C099E25125AFA002FF83D /* user.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C099D25125AFA002FF83D /* user.swift */; };
 		964C09A025125F68002FF83D /* followingListAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 964C099F25125F68002FF83D /* followingListAPI.swift */; };
@@ -34,6 +35,7 @@
 		962470FE25092AD000E74B47 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		962E10E724E046A200F0262F /* SignUpInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpInViewController.swift; sourceTree = "<group>"; };
 		963DD01E2503C4D80078EA10 /* APIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIViewController.swift; sourceTree = "<group>"; };
+		964177A225374CBA001C55AA /* NotificationTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTableViewController.swift; sourceTree = "<group>"; };
 		964325C424F6AF16005F8430 /* TestArchiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestArchiveViewController.swift; sourceTree = "<group>"; };
 		964C099D25125AFA002FF83D /* user.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = user.swift; sourceTree = "<group>"; };
 		964C099F25125F68002FF83D /* followingListAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = followingListAPI.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				962E10E724E046A200F0262F /* SignUpInViewController.swift */,
 				96FDEE7224D708C80060DFC2 /* ViewController.swift */,
 				96A606B1252E0A4100E94432 /* TableViewTestViewController.swift */,
+				964177A225374CBA001C55AA /* NotificationTableViewController.swift */,
 				962470FD25092A9400E74B47 /* Model */,
 				96FDEE7424D708C80060DFC2 /* Main.storyboard */,
 				96FDEE7A24D708C80060DFC2 /* Assets.xcassets */,
@@ -259,6 +262,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				964177A325374CBA001C55AA /* NotificationTableViewController.swift in Sources */,
 				962470FF25092AD000E74B47 /* Tag.swift in Sources */,
 				96FDEE7324D708C80060DFC2 /* ViewController.swift in Sources */,
 				96FDEE6F24D708C80060DFC2 /* AppDelegate.swift in Sources */,
