@@ -1,16 +1,16 @@
 //
-//  NotificationTableViewController.swift
+//  tagTabTableViewController.swift
 //  MapU01
 //
-//  Created by ting pan on 2020/10/14.
+//  Created by ting pan on 2020/10/15.
 //  Copyright © 2020 MapU. All rights reserved.
 //
 
 import UIKit
 
-class NotificationTableViewController: UITableViewController {
+class tagTabTableViewController: UITableViewController {
 
-    let testArray = ["AAA", "BBB", "CCC", "DDD"]
+    let testArr = ["RRR", "BBB", "CCCC"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,18 +31,18 @@ class NotificationTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return testArray.count
+        return testArr.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = testArray[indexPath.row]
+        cell.textLabel?.text = testArr[indexPath.row]
         // Configure the cell...
 
         return cell
     }
-
+    
 
     /*
     // Override to support conditional editing of the table view.

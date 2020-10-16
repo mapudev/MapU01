@@ -45,10 +45,7 @@ class ViewController: UIViewController {
             
         })
          
-
-                    
-//        let viewDidLoadRandomTag = self.tagArr.shuffled()
-//            viewDidLoadRandomTag[0].tagContent = self.randomTag.text
+                   
         
         }
          
