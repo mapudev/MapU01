@@ -41,7 +41,7 @@ class ViewController: UIViewController {
             self.shuffledTagArr = tagArr!.shuffled()
             self.randomTag.text = self.shuffledTagArr[3].tagContent
           
-//            print(self.shuffledTagArr.count)
+            print(self.shuffledTagArr.count)
             
         })
          
@@ -49,10 +49,10 @@ class ViewController: UIViewController {
         
         }
          
-
+    //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
     typealias TagArrayClosure = ([Tag]?) -> Void
 
-    //撈出tagPool底下所有資料匯入class並作為日後存取相關資料所用
+    
     func fetchTagPool(completionHandler: @escaping TagArrayClosure) {
         var result = [Tag]()
         
@@ -69,160 +69,43 @@ class ViewController: UIViewController {
     }
     }
     
-        
-
-    
-
-        
-    //吐出隨機標籤給前端
-    func outputRandomTagInstance(callback: (Tag) -> Void) {
-        
-        if self.shuffledTagArr.isEmpty { return
-                 
             
-        }else{
-            print(self.shuffledTagArr[2].tagContent!)
-
-//            shuffledArr = self.tagArr.shuffled()
-
-        }
-
-//        callback(shuffledArr[0])
-
-        
-        }
-           
-    
     func test() {
-
-        }
-            
         
+        
+    }
       
     
     @IBAction func test(_ sender: Any) {
-
-        if self.shuffledTagArr.isEmpty { return
-                 
+test()
+//        if self.shuffledTagArr.isEmpty { return
+//
+//
+//        }else{
+//          let number = GKRandomSource.sharedRandom().nextInt(upperBound: self.shuffledTagArr.count)
             
-        }else{
-          let number = GKRandomSource.sharedRandom().nextInt(upperBound: self.shuffledTagArr.count)
+//            print(self.shuffledTagArr[2].tagContent)
             
-            print(self.shuffledTagArr[number].tagContent)
-            
-        }
+//        }
         
         }
-            
-        
-        
-    
-    
-    
-    typealias FollowingArrayClosure = ([User]?) -> Void
-//    //撈出用戶名單陣列
-    func fetchFollowingUser(completionHandler: @escaping FollowingArrayClosure) {
-        
-        var result = [User]()
-        
-        API.User.fetchFollowingList { followingUser in
-            
-            result.append(followingUser)
-            
-            DispatchQueue.main.async() {
-                if result.isEmpty {
-                    completionHandler(nil)
-                }else {
-                    completionHandler(result)
-                  }
-            
-            }}
-        }
-    
- 
-    
-    
-
-////  吐出隨機朋友名字
-////  待補：不能跟上一個 name 一樣
-    func outputRandomFriend(followingUsers: [User]) ->(User, User) {
-      
-        var FriA = User()
-        var FriB = User()
-
-        if self.followingList.isEmpty { print("failed!!")
-            
-        }else{
-            
-            let FriShuffled = followingUsers.shuffled()
-            FriA = FriShuffled[0]
-            FriB = FriShuffled[1]
          
-        }
-        return (FriA, FriB)
-   
-    }
 
-//兩顆朋友名字投票按鈕，要連結同一支程式，考慮用tag來控制
+
     @IBAction func friendA(_ sender: UIButton) {
-        let randon2Fri = outputRandomFriend(followingUsers: self.followingList)
-        sender.setTitle(randon2Fri.0.displayName, for: .normal)
-        self.friendB.setTitle(randon2Fri.1.displayName, for: .normal)
-
-        outputRandomTagInstance { tagInstance in
-
-            randomTag.text = tagInstance.tagContent
-
+   
         }
-    }
+    
     
     @IBAction func friendB(_ sender: UIButton) {
-//        let randon2Fri = outputRandomFriend()
-//           sender.setTitle(randon2Fri.0, for: .normal)
-//           self.friendA.setTitle(randon2Fri.1, for: .normal)
-        
-//        outputRandomTagInstance()
 
     }
+
+
     
-//  下一步：將投票對象與標籤做關聯in firebase
-//         要怎麼將對應的tagID寫到userID底下？
-    func giveFriendTag(tagID: String) {
-
-
-        if let currentUser = Auth.auth().currentUser {
-            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(votedTag!.tagID!).setValue(true)
-
-        }else{
-print("faileddddd")        }
-        }
-    
-      
-
-
-// 提交tag函式
-    func submitTags(newTag: String) {
-        
-        API.UserRef.userRefRoot.child("tagsFromUser").childByAutoId().setValue(["tag":newTag])
-               
-     }
-    
-// 提交tag鈕
     @IBAction func submit(_ sender: Any) {
-        if let checkedInput = self.inputTag.text {
-            submitTags(newTag: checkedInput)
-            
-            self.inputTag.text = ""
-
-//            outputRandomTagInstance()
-
-        }else{
-            print("failed!!!!")
+      
         }
-        }
-    
-    
-
     
 }
 
