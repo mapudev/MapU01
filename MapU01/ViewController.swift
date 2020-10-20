@@ -187,11 +187,11 @@ class ViewController: UIViewController {
     
 //  下一步：將投票對象與標籤做關聯in firebase
 //         要怎麼將對應的tagID寫到userID底下？
-    func giveFriendTag(tagID: String) {
+    func giveFriendTag(tagID: String, friendName: String, times: Int) {
 
 
         if let currentUser = Auth.auth().currentUser {
-            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(votedTag!.tagID!).setValue(true)
+            API.UserRef.userRef.child(currentUser.uid).child("voteTag").child(tagID).child("for").setValue(true)
 
         }else{
 print("faileddddd")        }

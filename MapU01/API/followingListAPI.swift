@@ -22,7 +22,8 @@ class FollowingListAPI {
        if let currentUserUID = Auth.auth().currentUser?.uid {
               
             let followingListRef = Database.database().reference().child("userList").child(currentUserUID).child("followingList")
-                  followingListRef.observe(.childAdded, with: {(Snapshot) in
+                
+        followingListRef.observe(.childAdded, with: {(Snapshot) in
                       
                     let followingUID = Snapshot.key
                     self.userRef.child("userList").child(followingUID).child("name").observe(DataEventType.value, with: { (snapshot) in
