@@ -22,7 +22,7 @@ class ViewController: UIViewController {
     var tagsForVote: [String] = []
     var userNameArr: [String] = []
     var tagArr = [Tag]()
-    var votedTag: Tag?
+    var TagInstanceForVote: Tag?
     var shuffledTagArr = [Tag]()
     var followingList = [User]()
 
@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         //匿名登入
         Auth.auth().signInAnonymously { (authresult,error) in
             if error == nil{
+                API.UserRef.userRef.child("\(authresult!.user.uid)").setValue(["name": "test"])
             print("signed-in \(authresult!.user.uid)")
            }else{
            print(error!.localizedDescription)
@@ -39,10 +40,9 @@ class ViewController: UIViewController {
         
         fetchTagPool(completionHandler: { tagArr in
             self.shuffledTagArr = tagArr!.shuffled()
-            self.randomTag.text = self.shuffledTagArr[3].tagContent
+            self.TagInstanceForVote = self.outputRandomTagInstance(tagArr: self.shuffledTagArr)
           
-//            print(self.shuffledTagArr.count)
-            
+            self.randomTag.text = self.TagInstanceForVote?.tagContent
         })
          
                    
@@ -75,13 +75,9 @@ class ViewController: UIViewController {
 
         
     //吐出隨機標籤給前端
-    func outputRandomTagInstance(callback: (Tag) -> Void) {
+    func outputRandomTagInstance(tagArr: [Tag]) -> Tag {
         
-        if self.shuffledTagArr.isEmpty { return
-                 
-            
-        }else{
-            print(self.shuffledTagArr[2].tagContent!)
+        return tagArr[2]
 
 //            shuffledArr = self.tagArr.shuffled()
 
@@ -90,11 +86,13 @@ class ViewController: UIViewController {
 //        callback(shuffledArr[0])
 
         
-        }
+        
            
     
     func test() {
-
+        for i in self.shuffledTagArr {
+            print(i.tagID!)
+        }
         }
             
         
@@ -102,15 +100,7 @@ class ViewController: UIViewController {
     
     @IBAction func test(_ sender: Any) {
 
-        if self.shuffledTagArr.isEmpty { return
-                 
-            
-        }else{
-          let number = GKRandomSource.sharedRandom().nextInt(upperBound: self.shuffledTagArr.count)
-            
-            print(self.shuffledTagArr[number].tagContent)
-            
-        }
+       test()
         
         }
             
@@ -169,11 +159,11 @@ class ViewController: UIViewController {
         sender.setTitle(randon2Fri.0.displayName, for: .normal)
         self.friendB.setTitle(randon2Fri.1.displayName, for: .normal)
 
-        outputRandomTagInstance { tagInstance in
-
-            randomTag.text = tagInstance.tagContent
-
-        }
+//        outputRandomTagInstance { tagInstance in
+//
+//            randomTag.text = tagInstance.tagContent
+//
+//        }
     }
     
     @IBAction func friendB(_ sender: UIButton) {
