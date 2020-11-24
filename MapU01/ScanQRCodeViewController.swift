@@ -14,12 +14,13 @@ class ScanQRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsD
     @IBOutlet weak var messageLabel: UILabel!
     var frameView: UIView?
     var previewLayer: AVCaptureVideoPreviewLayer?
+    var captureSession: AVCaptureSession?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        var captureSession: AVCaptureSession?
         
 
         
@@ -41,9 +42,14 @@ class ScanQRCodeViewController: UIViewController,AVCaptureMetadataOutputObjectsD
             
             view.addSubview(detectView)
             view.bringSubviewToFront(detectView)
+         
+            
+                   
         }
         
     }
+    
+    
     
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         
