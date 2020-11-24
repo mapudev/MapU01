@@ -15,6 +15,8 @@ import GameKit
 
 class ViewController: UIViewController {
 
+   
+   
     @IBOutlet weak var friendA: UIButton!
     @IBOutlet weak var friendB: UIButton!
     @IBOutlet weak var randomTag: UILabel!
@@ -67,12 +69,17 @@ class ViewController: UIViewController {
                       }
         }
     }
+        
+        
+        
     }
     
-        
-
     
-
+    
+    @IBAction func shareBtn(_ sender: UIButton) {
+    }
+    
+    
         
     //吐出隨機標籤給前端
     func outputRandomTagInstance(tagArr: [Tag]) -> Tag {
@@ -153,6 +160,11 @@ class ViewController: UIViewController {
    
     }
 
+    func mergeTestContent() {
+        
+        print("YAAAAAAAAA")
+    }
+   
 //兩顆朋友名字投票按鈕，要連結同一支程式，考慮用tag來控制
     @IBAction func friendA(_ sender: UIButton) {
         let randon2Fri = outputRandomFriend(followingUsers: self.followingList)
@@ -164,7 +176,12 @@ class ViewController: UIViewController {
 //            randomTag.text = tagInstance.tagContent
 //
 //        }
+        
+                
     }
+    
+    
+
     
     @IBAction func friendB(_ sender: UIButton) {
 //        let randon2Fri = outputRandomFriend()

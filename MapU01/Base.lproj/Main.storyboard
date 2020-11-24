@@ -206,6 +206,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FTt-jm-apR">
+                                <rect key="frame" x="133" y="328" width="109" height="49"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareBtn:" destination="Ifh-Zq-b8W" eventType="touchUpInside" id="rvK-il-llA"/>
+                                    <action selector="shareText:" destination="Ifh-Zq-b8W" eventType="touchUpInside" id="XWq-1s-6c1"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5Rk-od-fkF"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -221,6 +231,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zLF-dA-L02" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="Ifh-Zq-b8W" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1151.2" y="-28.817733990147783"/>
         </scene>
